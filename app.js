@@ -1,20 +1,6 @@
 const express = require("express")
+const moment = require("moment")
 const app = express()
-
-function getCurrentUTCWithinWindow() {
-	const now = new Date()
-	const currentUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000) // Convert to UTC
-
-	// Calculate a random number between -2 and 2
-	const randomMinutes = Math.floor(Math.random() * 5) - 2
-
-	// Add the random number of minutes to the current UTC time
-	currentUTC.setMinutes(currentUTC.getMinutes() + randomMinutes)
-
-	return currentUTC.toISOString()
-}
-
-// Call the function to get the current UTC time within a +/-2 minute window
 
 // Define a route that handles GET requests
 app.get("/api", (req, res) => {
@@ -26,7 +12,7 @@ app.get("/api", (req, res) => {
 		}
 
 		// // Calculate current UTC time
-		const utcTime = getCurrentUTCWithinWindow()
+		let now = moment().utc().format("YYYY-MM-DDTHH:mm:ss") + "Z"
 
 		const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -41,7 +27,7 @@ app.get("/api", (req, res) => {
 		res.status(200).json({
 			slack_name: slack_name,
 			current_day: currentDayOfWeek,
-			utc_time: utcTime,
+			utc_time: now,
 			track: track,
 			github_file_url: "https://github.com/Robotron2/hngtaskone/blob/main/app.js",
 			github_repo_url: "https://github.com/Robotron2/hngtaskone",

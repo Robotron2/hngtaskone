@@ -9,6 +9,8 @@
   "author": "Theophilus Adesola",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2"
+    "dayjs": "^1.11.9",
+    "express": "^4.18.2",
+    "moment": "^2.29.4"
   }
 }
